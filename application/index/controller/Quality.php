@@ -25,6 +25,7 @@ class Quality extends Base
         $images = input('post.images/a');
         $modify_time = input('post.modify_time','');//整改时间
         $group = input('post.group');//是否分组
+        $do_people = input('post.do_people/a');//是否分组
         if($group) {
             $to_user = input('post.to_user');
         } else {
@@ -45,7 +46,7 @@ class Quality extends Base
             return $return;
         }
 
-        if(!$pid || !$build || !$floor|| !$images || !$modify_time ||!$type) {
+        if(!$pid || !$build || !$floor|| !$images || !$modify_time ||!$type || !$do_people) {
             $return = my_return('',500,'参数不全');
             return $return;
         }
@@ -63,6 +64,7 @@ class Quality extends Base
             'require_time'=>strtotime($modify_time),
             'creator'=>$userinfo['uid'],
             'image'=>implode(',',$images),
+            'do_people'=>implode(',',$do_people),
         ];
 
         if($group) {
@@ -97,12 +99,12 @@ class Quality extends Base
             $notify[$k]['add_time'] = $time;
         }
 
-        $notify_res = Db::name('notify')->insertAll($notify);
+        /*$notify_res = Db::name('notify')->insertAll($notify);
 
         if(!$notify_res) {
             $return = my_return('',200,'创建成功,通知创建失败');
             return $return;
-        }
+        }*/
 
         $return = my_return('',200,'创建成功');
         return $return;
@@ -236,7 +238,7 @@ class Quality extends Base
                 $plan_list['re_image'] = explode(',',$plan_list['re_image']);
             }
 
-
+        $plan_list['do_people'] = explode(',',$plan_list['do_people']);
             if($plan_list['modify_group'] == 0) {
                 $serch_list = $plan_list['modify_people'];
                 $plan_list['group'] = false;

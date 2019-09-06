@@ -119,10 +119,77 @@ class Login extends Controller
     public function test(){
 
 
-//        $ip = Config::get('my_host');
-        $ip = $_SERVER['SERVER_ADDR'];
-        $ips = gethostbyname($ip);
-        dump($ips);die;
+//材料
+//        $userInfo = $this->user_info;
+//        $uid = $this->uid;
+        $uid = 3;
+        $userInfo['types'] = 2;
+        $material = Db::name('material_acceptance')->where('state','<',3)->select();
+        $data[0][0] = 0;//材料抄送数 初始化
+        $data[0][1] = 0;//材料待处理
+        $data[1][0] = 0;//质量抄送
+        $data[2][0] = 0;//安全抄送
+        $data[1][1] = 0;//质量待处理
+        $data[2][1] = 0;//安全待处理
+        foreach ($material as $key => $value) {
+            if ($value['read_group'] == 0) {
+                $serch_list = $value['read_people'];
+            } else {
+                $group_user = get_group($value['read_group']);
+                $serch_list = $group_user['group_uid'];
+
+            }
+            $serch_list_chao = explode(',', $serch_list);//抄送人
+            if(in_array($uid,$serch_list_chao )){
+                $data[0][0]++;
+            }
+            $serch_list_chuli = explode(',',$value['jianli_accept']);
+            if($value['target_accept_user'] != '') {
+                $jianshe = explode(',',$value['target_accept_user']);
+                $serch_list_chuli = array_merge($serch_list_chuli,$jianshe);
+            }
+            if(in_array($uid,$serch_list_chuli )){
+                $data[0][1]++;
+            }
+
+        }
+
+        $dataInfo = Db::name('quality')->where('state','<>',3)->select();
+
+        foreach ($dataInfo as $k => $v) {
+            if($v['state'] == 2){
+                if($userInfo['types'] == 2 || $userInfo['types'] == 3) {
+                    $data[1][1]++;
+                }
+            } else {
+                if ($v['modify_group'] == 0) {
+                    $serch_list = $v['modify_people'];
+                } else {
+                    $group_user = get_group($v['modify_group']);
+                    $serch_list = $group_user['group_uid'];
+
+                }
+                $serch_list_chao = explode(',', $serch_list);//抄送人
+                if(in_array($uid,$serch_list_chao )){
+                    if($v['type'] == 1) {
+                        //质量
+                        $data[1][0]++;
+                    } else {
+                        $data[2][0]++;
+                    }
+
+                }
+                if(in_array($uid,explode(',',$v['do_people']))) {
+                    if($v['type'] == 1) {
+                        //质量
+                        $data[1][1]++;
+                    } else {
+                        $data[2][1]++;
+                    }
+                }
+            }
+        }
+        dump($data);die;
 
 
     }
