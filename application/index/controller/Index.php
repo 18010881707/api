@@ -16,12 +16,12 @@ class Index extends Base
         $userInfo = $this->user_info;
         $uid = $this->uid;
         $material = Db::name('material_acceptance')->where('state','<',3)->select();
-        $data[0][0] = 0;//材料抄送数 初始化
-        $data[0][1] = 0;//材料待处理
-        $data[1][0] = 0;//质量抄送
-        $data[1][1] = 0;//质量待处理
-        $data[2][0] = 0;//安全抄送
-        $data[2][1] = 0;//安全待处理
+        $data[0]['a'] = 0;//材料抄送数 初始化
+        $data[0]['b'] = 0;//材料待处理
+        $data[1]['a'] = 0;//质量抄送
+        $data[1]['b'] = 0;//质量待处理
+        $data[2]['a'] = 0;//安全抄送
+        $data[2]['b'] = 0;//安全待处理
         foreach ($material as $key => $value) {
             if ($value['read_group'] == 0) {
                 $serch_list = $value['read_people'];
@@ -32,7 +32,7 @@ class Index extends Base
             }
             $serch_list_chao = explode(',', $serch_list);//抄送人
             if(in_array($uid,$serch_list_chao )){
-                $data[0][0]++;
+                $data[0]['a']++;
             }
             $serch_list_chuli = explode(',',$value['jianli_accept']);
             if($value['target_accept_user'] != '') {
@@ -40,7 +40,7 @@ class Index extends Base
                 $serch_list_chuli = array_merge($serch_list_chuli,$jianshe);
             }
             if(in_array($uid,$serch_list_chuli )){
-                $data[0][1]++;
+                $data[0]['b']++;
             }
 
         }
@@ -50,7 +50,7 @@ class Index extends Base
         foreach ($dataInfo as $k => $v) {
             if($v['state'] == 2){
                 if($userInfo['types'] == 2 || $userInfo['types'] == 3) {
-                    $data[1][1]++;
+                    $data[1]['b']++;
                 }
             } else {
                 if ($v['modify_group'] == 0) {
@@ -64,18 +64,18 @@ class Index extends Base
                 if(in_array($uid,$serch_list_chao )){
                     if($v['type'] == 1) {
                         //质量
-                        $data[1][0]++;
+                        $data[1]['a']++;
                     } else {
-                        $data[2][0]++;
+                        $data[2]['a']++;
                     }
 
                 }
                 if(in_array($uid,explode(',',$v['do_people']))) {
                     if($v['type'] == 1) {
                         //质量
-                        $data[1][1]++;
+                        $data[1]['b']++;
                     } else {
-                        $data[2][1]++;
+                        $data[2]['b']++;
                     }
                 }
             }
