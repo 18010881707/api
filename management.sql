@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : mydb
  Source Server Type    : MySQL
  Source Server Version : 50553
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 04/09/2019 09:01:02
+ Date: 11/09/2019 15:39:49
 */
 
 SET NAMES utf8mb4;
@@ -28,27 +28,32 @@ CREATE TABLE `x_material_acceptance`  (
   `material_server` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '材料供应商',
   `position` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '使用部位',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '补充说明',
-  `read_people` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接收人',
-  `read_group` int(11) NOT NULL DEFAULT 0 COMMENT '接受组',
-  `target_accept_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '验收人',
-  `state` tinyint(1) NOT NULL COMMENT '1：无需验收2：待验收3：已验收4：已拒绝',
+  `read_people` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '抄送人',
+  `read_group` int(11) NOT NULL DEFAULT 0 COMMENT '抄送组',
+  `target_accept_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '建设方验收人',
+  `jianli_accept` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '监理方验收人',
+  `state` tinyint(1) NOT NULL COMMENT '1：监理待验收\r\n2：建设方待验收\r\n3：已验收\r\n4：已拒绝',
   `refuse_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '拒绝理由',
   `creator` int(11) NULL DEFAULT NULL COMMENT '发起者',
-  `acceptor` int(11) NULL DEFAULT NULL COMMENT '实际验收 处理者',
+  `acceptor` int(11) NULL DEFAULT NULL COMMENT '最后验收人',
   `add_time` int(11) NULL DEFAULT NULL,
   `update_time` int(11) NULL DEFAULT NULL,
+  `need_jianshe_verify` tinyint(1) NULL DEFAULT NULL COMMENT '是否需要建设单位验收1：不要 2：要',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '材料验收' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '材料验收' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_material_acceptance
 -- ----------------------------
-INSERT INTO `x_material_acceptance` VALUES (1, 12, '我完全若', '欠人情若群无', '请问人情味若', '法师法师法发顺丰碍事法师啊', '4', 0, NULL, 1, NULL, 9, NULL, 1567497792, 1567497792);
-INSERT INTO `x_material_acceptance` VALUES (5, 13, '撒发送撒发送发', '必须赞发声方法', '还会热回复打电话', '科技路上了国家历史的管理 空间里睡大觉高老师是开始看过了就死了赶紧上来的国家历史建设', NULL, 7, '', 1, NULL, 9, NULL, 1567502039, 1567502039);
-INSERT INTO `x_material_acceptance` VALUES (4, 13, '撒发送', '必须赞', '还会热回复打电话', '科技路上了国家历史的管理 空间里睡大觉高老师是开始打开', NULL, 7, NULL, 1, NULL, 9, NULL, 1567501982, 1567501982);
-INSERT INTO `x_material_acceptance` VALUES (6, 12, '灌灌灌灌或', '吞吞吐吐玩儿玩儿', '东方饭店丰富的', '两个经历过了建立国家来说就是对计算机是 公司 的  十多个s\'d\'g\'d\'d', '8,7,6,3', 0, '7,4', 2, NULL, 9, NULL, 1567502115, 1567502115);
-INSERT INTO `x_material_acceptance` VALUES (7, 12, '方法发却无法去', 'AAS爱上萨法是', ' 防风网放弃我放弃无法去 ', '青浦区欧文日抛弃我', '6,7', 0, '3', 2, NULL, 9, NULL, 1567502158, 1567502158);
-INSERT INTO `x_material_acceptance` VALUES (8, 12, 'www', 'wwww', 'ww', 'www', '9,8', 0, '3,4,7', 2, NULL, 9, NULL, 1567503435, 1567503435);
+INSERT INTO `x_material_acceptance` VALUES (1, 12, '我完全若', '欠人情若群无', '请问人情味若', '法师法师法发顺丰碍事法师啊', '4', 0, NULL, NULL, 1, NULL, 9, NULL, 1567497792, 1567497792, NULL);
+INSERT INTO `x_material_acceptance` VALUES (5, 13, '撒发送撒发送发', '必须赞发声方法', '还会热回复打电话', '科技路上了国家历史的管理 空间里睡大觉高老师是开始看过了就死了赶紧上来的国家历史建设', NULL, 7, '', NULL, 1, NULL, 9, NULL, 1567502039, 1567502039, NULL);
+INSERT INTO `x_material_acceptance` VALUES (4, 13, '撒发送', '必须赞', '还会热回复打电话', '科技路上了国家历史的管理 空间里睡大觉高老师是开始打开', NULL, 7, NULL, NULL, 1, NULL, 9, NULL, 1567501982, 1567501982, NULL);
+INSERT INTO `x_material_acceptance` VALUES (6, 12, '灌灌灌灌或', '吞吞吐吐玩儿玩儿', '东方饭店丰富的', '两个经历过了建立国家来说就是对计算机是 公司 的  十多个s\'d\'g\'d\'d', '8,7,6,3', 0, '7,4', NULL, 4, 'sgkshd s s', 9, 7, 1567502115, 1567564149, NULL);
+INSERT INTO `x_material_acceptance` VALUES (7, 12, '方法发却无法去', 'AAS爱上萨法是', ' 防风网放弃我放弃无法去 ', '青浦区欧文日抛弃我', '6,7', 0, '3', NULL, 2, NULL, 9, NULL, 1567502158, 1567502158, NULL);
+INSERT INTO `x_material_acceptance` VALUES (8, 12, 'www', 'wwww', 'ww', 'www', '9,8', 0, '3,4,7', NULL, 3, '', 9, 7, 1567503435, 1567563128, NULL);
+INSERT INTO `x_material_acceptance` VALUES (9, 14, '水泥', 'B公司', '墙体', '', '11', 0, '10', NULL, 3, '', 12, 10, 1567652854, 1567653234, NULL);
+INSERT INTO `x_material_acceptance` VALUES (10, 14, 'w', 'w', 'w', 'wwwwwwwww', '6,9,7', 0, '7,10', '11,8,6', 1, NULL, 9, NULL, 1567676679, 1567676679, 2);
+INSERT INTO `x_material_acceptance` VALUES (11, 12, 'vb', 'bb', 'bb', 'bbbb', '6,8', 0, '', '6,8', 1, NULL, 9, NULL, 1567677349, 1567677349, 1);
 
 -- ----------------------------
 -- Table structure for x_notify
@@ -63,7 +68,7 @@ CREATE TABLE `x_notify`  (
   `add_time` int(11) NULL DEFAULT NULL,
   `read_time` int(11) NULL DEFAULT NULL COMMENT '阅读时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 93 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '通知' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 105 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '通知' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_notify
@@ -92,6 +97,18 @@ INSERT INTO `x_notify` VALUES (72, 8, 1, '您有一个材料问题待验收', 1,
 INSERT INTO `x_notify` VALUES (71, 4, 1, '您有一个材料问题待验收', 1, 1567501151, NULL);
 INSERT INTO `x_notify` VALUES (70, 4, 1, '您有一个材料问题待验收', 1, 1567497987, NULL);
 INSERT INTO `x_notify` VALUES (69, 7, 1, '您有一个材料问题待验收', 1, 1567497987, NULL);
+INSERT INTO `x_notify` VALUES (93, 7, 1, '您有一个质量问题待审批', 1, NULL, NULL);
+INSERT INTO `x_notify` VALUES (94, 3, 1, '您有一个安全问题待处理', 1, 1567575952, NULL);
+INSERT INTO `x_notify` VALUES (95, 9, 1, '您有一个安全问题待处理', 1, 1567575952, NULL);
+INSERT INTO `x_notify` VALUES (96, 7, 1, '您有一个安全问题待处理', 1, 1567579105, NULL);
+INSERT INTO `x_notify` VALUES (97, 3, 1, '您有一个安全问题待处理', 1, 1567579105, NULL);
+INSERT INTO `x_notify` VALUES (98, 3, 1, '您有一个安全问题待处理', 1, 1567579672, NULL);
+INSERT INTO `x_notify` VALUES (99, 7, 1, '您有一个安全问题待处理', 1, 1567579672, NULL);
+INSERT INTO `x_notify` VALUES (100, 11, 1, '您有一个材料问题待验收', 1, 1567652854, NULL);
+INSERT INTO `x_notify` VALUES (101, 10, 1, '您有一个材料问题待验收', 1, 1567652854, NULL);
+INSERT INTO `x_notify` VALUES (102, 12, 1, '您有一个质量问题待处理', 1, 1567653448, NULL);
+INSERT INTO `x_notify` VALUES (103, 11, 1, '您有一个质量问题待处理', 1, 1567653448, NULL);
+INSERT INTO `x_notify` VALUES (104, 10, 1, '您有一个质量问题待审批', 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for x_position_category
@@ -114,14 +131,16 @@ CREATE TABLE `x_project`  (
   `add_time` int(11) NULL DEFAULT NULL,
   `add_user` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建者',
   `delete` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:可用 2：删除',
+  `add_uid` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '项目表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '项目表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_project
 -- ----------------------------
-INSERT INTO `x_project` VALUES (12, '碧桂园', 1566179471, '刘某', 1);
-INSERT INTO `x_project` VALUES (13, '万达茂', 1566206095, 'ss', 1);
+INSERT INTO `x_project` VALUES (12, '碧桂园', 1566179471, '刘某', 1, 3);
+INSERT INTO `x_project` VALUES (13, '万达茂', 1566206095, 'ss', 2, 7);
+INSERT INTO `x_project` VALUES (14, '项目A', 1567649183, 'admin', 1, 1);
 
 -- ----------------------------
 -- Table structure for x_quality
@@ -141,23 +160,26 @@ CREATE TABLE `x_quality`  (
   `require_time` int(11) NULL DEFAULT NULL COMMENT '要求整改时间（最长期限）',
   `modify_time` int(11) NULL DEFAULT NULL COMMENT '实际整改时间',
   `creator` int(11) NULL DEFAULT NULL COMMENT '发起者',
-  `modify_people` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '指定的整改人 逗号分割',
-  `modify_group` int(11) NOT NULL DEFAULT 0 COMMENT '指定的整改组',
+  `modify_people` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '抄送人',
+  `modify_group` int(11) NOT NULL DEFAULT 0 COMMENT '抄送人组',
+  `do_people` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '处理人',
   `is_del` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1：可用 2：删除',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '最近更新时间',
   `verify_user` int(11) NULL DEFAULT NULL COMMENT '审批者',
   `type` int(11) NOT NULL DEFAULT 1 COMMENT '1：质量 2：安全',
   `refuse_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '不通过理由',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '质量检查' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '质量检查' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_quality
 -- ----------------------------
-INSERT INTO `x_quality` VALUES (21, 13, '3', '3', '3', '3', '192.168.1.183/uploads/20190902\\9ee872963fac918e71928b586d2828ff.jpg', '192.168.1.183/uploads/20190902\\b65370226623a8aa52abf7bec89b0291.jpg', 2, 1567406489, 1569772800, 1567406672, 7, NULL, 6, 1, 1567406672, NULL, 1, NULL);
-INSERT INTO `x_quality` VALUES (20, 13, '2', '2', '2', '22', '192.168.1.183/uploads/20190902\\cf6b3c449e157569b4a03e045ba4c399.jpg', NULL, 4, 1567406001, 1569772800, NULL, 7, NULL, 2, 1, 1567406279, 7, 1, '女的长的太丑了');
-INSERT INTO `x_quality` VALUES (18, 13, '1', '1', '1', '1', '192.168.1.183/uploads/20190902\\320c57b1f1511cf1817f85599375a770.jpg', NULL, 1, 1567404578, 1569168000, NULL, 7, NULL, 6, 2, 1567404578, NULL, 1, NULL);
-INSERT INTO `x_quality` VALUES (19, 12, '1', '1', '1', '1', '192.168.1.183/uploads/20190902\\f8dcad089944b015063b6508b915a0d6.jpg', '192.168.1.183/uploads/20190902\\04fb29504ec7f821fa5042b89abd4a73.jpg,192.168.1.183/uploads/20190902\\636e9ceb99b646938492e93662d4af26.jpg', 3, 1567405408, 1569254400, 1567405495, 7, NULL, 6, 1, 1567405684, 7, 1, '');
+INSERT INTO `x_quality` VALUES (25, 14, '1', '2', '墙体', '不符合规范', 'http://192.168.1.140/uploads/20190905\\a3d93a5e4ecb8f5468313d7652bfee3e.jpg', 'http://192.168.1.140/uploads/20190905\\b751529880f3d4d5387e2a7f82793b30.jpg', 3, 1567653448, 1568044800, 1567653555, 10, '12,11', 0, '', 1, 1567653576, 10, 1, '');
+INSERT INTO `x_quality` VALUES (20, 13, '2', '2', '2', '22', '192.168.1.183/uploads/20190902\\cf6b3c449e157569b4a03e045ba4c399.jpg', NULL, 4, 1567406001, 1569772800, NULL, 7, NULL, 2, '', 1, 1567406279, 7, 1, '女的长的太丑了');
+INSERT INTO `x_quality` VALUES (18, 13, '1', '1', '1', '1', '192.168.1.183/uploads/20190902\\320c57b1f1511cf1817f85599375a770.jpg', '192.168.1.140/uploads/20190904\\fe4818006e882454864d43954d49dfa9.jpg', 3, 1567404578, 1569168000, 1567566739, 7, NULL, 6, '', 2, 1567566761, 7, 1, '');
+INSERT INTO `x_quality` VALUES (19, 12, '1', '1', '1', '1', '192.168.1.183/uploads/20190902\\f8dcad089944b015063b6508b915a0d6.jpg', '192.168.1.183/uploads/20190902\\04fb29504ec7f821fa5042b89abd4a73.jpg,192.168.1.183/uploads/20190902\\636e9ceb99b646938492e93662d4af26.jpg', 3, 1567405408, 1569254400, 1567405495, 7, NULL, 6, '', 1, 1567405684, 7, 1, '');
+INSERT INTO `x_quality` VALUES (24, 12, '所有', '1', '', '速度', 'http://192.168.1.140/uploads/20190904\\92492107d0e68f27c9b8fb3b2edd2859.jpg,http://192.168.1.140/uploads/20190904\\e3ea8be63b9de536c49053ed630009fd.jpg', NULL, 1, 1567579672, 1569513600, NULL, 3, '3,7', 0, '', 1, 1567579672, NULL, 2, NULL);
+INSERT INTO `x_quality` VALUES (26, 12, '222', '2', '2', '22', 'http://wl.ngrok.it-wpf.info/uploads/20190906\\cea86f93aa103aa16b973e987ab3e080.jpg', 'http://wl.ngrok.it-wpf.info/uploads/20190906\\7ec8fea4628ac5cecc54511ce8938b01.jpg', 3, 1567759300, 1568131200, 1567759325, 7, NULL, 6, '9', 1, 1567759331, 7, 1, '');
 
 -- ----------------------------
 -- Table structure for x_speed_build
@@ -171,7 +193,7 @@ CREATE TABLE `x_speed_build`  (
   `floor_num` int(11) NULL DEFAULT NULL COMMENT '楼层数',
   `model_id` int(11) NOT NULL DEFAULT 0 COMMENT '0:不是楼层对应',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '计划--对应楼号表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '计划--对应楼号表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of x_speed_build
@@ -188,6 +210,12 @@ INSERT INTO `x_speed_build` VALUES (15, 11, '1', 0.00, 0, 24);
 INSERT INTO `x_speed_build` VALUES (16, 12, '1', 233.00, 2, 0);
 INSERT INTO `x_speed_build` VALUES (17, 13, '1', 2.00, 2, 0);
 INSERT INTO `x_speed_build` VALUES (18, 14, '1', 2000.00, 29, 24);
+INSERT INTO `x_speed_build` VALUES (19, 15, '1', 100.00, 4, 0);
+INSERT INTO `x_speed_build` VALUES (20, 15, '2', 200.00, 3, 0);
+INSERT INTO `x_speed_build` VALUES (21, 16, '1', 100.00, 4, 0);
+INSERT INTO `x_speed_build` VALUES (22, 16, '2', 120.00, 3, 0);
+INSERT INTO `x_speed_build` VALUES (23, 17, '1', NULL, 2, 0);
+INSERT INTO `x_speed_build` VALUES (24, 18, '1', NULL, 6, 0);
 
 -- ----------------------------
 -- Table structure for x_speed_floor
@@ -196,50 +224,73 @@ DROP TABLE IF EXISTS `x_speed_floor`;
 CREATE TABLE `x_speed_floor`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `b_id` int(11) NULL DEFAULT NULL COMMENT '所属楼号',
-  `floor_num` int(11) NULL DEFAULT NULL COMMENT '楼层名',
+  `floor_num` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '楼层名',
   `model_id` int(11) NULL DEFAULT NULL COMMENT '模板id',
+  `area` float(20, 2) NOT NULL COMMENT '面积（单位平方米）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '楼层表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '楼层表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of x_speed_floor
 -- ----------------------------
-INSERT INTO `x_speed_floor` VALUES (34, 7, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (35, 7, 2, 24);
-INSERT INTO `x_speed_floor` VALUES (36, 7, 3, 24);
-INSERT INTO `x_speed_floor` VALUES (37, 7, 4, 24);
-INSERT INTO `x_speed_floor` VALUES (38, 7, 5, 24);
-INSERT INTO `x_speed_floor` VALUES (39, 7, 6, 24);
-INSERT INTO `x_speed_floor` VALUES (40, 7, 7, 24);
-INSERT INTO `x_speed_floor` VALUES (41, 7, 8, 24);
-INSERT INTO `x_speed_floor` VALUES (42, 8, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (43, 8, 2, 24);
-INSERT INTO `x_speed_floor` VALUES (44, 8, 3, 24);
-INSERT INTO `x_speed_floor` VALUES (45, 8, 4, 24);
-INSERT INTO `x_speed_floor` VALUES (46, 8, 5, 24);
-INSERT INTO `x_speed_floor` VALUES (47, 8, 6, 24);
-INSERT INTO `x_speed_floor` VALUES (48, 8, 7, 24);
-INSERT INTO `x_speed_floor` VALUES (49, 8, 8, 24);
-INSERT INTO `x_speed_floor` VALUES (50, 9, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (51, 9, 2, 24);
-INSERT INTO `x_speed_floor` VALUES (52, 9, 3, 24);
-INSERT INTO `x_speed_floor` VALUES (53, 9, 4, 24);
-INSERT INTO `x_speed_floor` VALUES (54, 9, 5, 24);
-INSERT INTO `x_speed_floor` VALUES (55, 9, 6, 24);
-INSERT INTO `x_speed_floor` VALUES (56, 9, 7, 24);
-INSERT INTO `x_speed_floor` VALUES (57, 9, 8, 24);
-INSERT INTO `x_speed_floor` VALUES (58, 10, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (59, 10, 2, 24);
-INSERT INTO `x_speed_floor` VALUES (60, 10, 3, 24);
-INSERT INTO `x_speed_floor` VALUES (61, 10, 4, 24);
-INSERT INTO `x_speed_floor` VALUES (62, 11, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (63, 11, 2, 24);
-INSERT INTO `x_speed_floor` VALUES (64, 12, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (65, 12, 2, 24);
-INSERT INTO `x_speed_floor` VALUES (66, 16, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (67, 16, 2, 24);
-INSERT INTO `x_speed_floor` VALUES (68, 17, 1, 24);
-INSERT INTO `x_speed_floor` VALUES (69, 17, 2, 24);
+INSERT INTO `x_speed_floor` VALUES (34, 7, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (35, 7, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (36, 7, '3', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (37, 7, '4', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (38, 7, '5', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (39, 7, '6', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (40, 7, '7', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (41, 7, '8', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (42, 8, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (43, 8, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (44, 8, '3', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (45, 8, '4', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (46, 8, '5', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (47, 8, '6', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (48, 8, '7', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (49, 8, '8', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (50, 9, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (51, 9, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (52, 9, '3', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (53, 9, '4', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (54, 9, '5', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (55, 9, '6', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (56, 9, '7', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (57, 9, '8', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (58, 10, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (59, 10, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (60, 10, '3', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (61, 10, '4', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (62, 11, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (63, 11, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (64, 12, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (65, 12, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (66, 16, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (67, 16, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (68, 17, '1', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (69, 17, '2', 24, 0.00);
+INSERT INTO `x_speed_floor` VALUES (70, 19, '1', 27, 0.00);
+INSERT INTO `x_speed_floor` VALUES (71, 19, '2', 28, 0.00);
+INSERT INTO `x_speed_floor` VALUES (72, 19, '3', 28, 0.00);
+INSERT INTO `x_speed_floor` VALUES (73, 19, '4', 29, 0.00);
+INSERT INTO `x_speed_floor` VALUES (74, 20, '1', 27, 0.00);
+INSERT INTO `x_speed_floor` VALUES (75, 20, '2', 28, 0.00);
+INSERT INTO `x_speed_floor` VALUES (76, 20, '3', 29, 0.00);
+INSERT INTO `x_speed_floor` VALUES (77, 21, '1', 30, 0.00);
+INSERT INTO `x_speed_floor` VALUES (78, 21, '2', 31, 0.00);
+INSERT INTO `x_speed_floor` VALUES (79, 21, '3', 31, 0.00);
+INSERT INTO `x_speed_floor` VALUES (80, 21, '4', 29, 0.00);
+INSERT INTO `x_speed_floor` VALUES (81, 22, '1', 30, 0.00);
+INSERT INTO `x_speed_floor` VALUES (82, 22, '2', 31, 0.00);
+INSERT INTO `x_speed_floor` VALUES (83, 22, '3', 29, 0.00);
+INSERT INTO `x_speed_floor` VALUES (84, 23, '1F', 29, 0.00);
+INSERT INTO `x_speed_floor` VALUES (85, 23, '2F', 27, 0.00);
+INSERT INTO `x_speed_floor` VALUES (86, 24, '1F', 28, 0.00);
+INSERT INTO `x_speed_floor` VALUES (87, 24, '2F', 30, 0.00);
+INSERT INTO `x_speed_floor` VALUES (88, 24, '3F', 27, 0.00);
+INSERT INTO `x_speed_floor` VALUES (89, 24, '4F', 25, 0.00);
+INSERT INTO `x_speed_floor` VALUES (90, 24, '5F', 31, 0.00);
+INSERT INTO `x_speed_floor` VALUES (91, 24, '6F', 31, 0.00);
 
 -- ----------------------------
 -- Table structure for x_speed_model
@@ -252,12 +303,19 @@ CREATE TABLE `x_speed_model`  (
   `add_time` int(11) NULL DEFAULT NULL,
   `add_user` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模板总表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模板总表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_speed_model
 -- ----------------------------
 INSERT INTO `x_speed_model` VALUES (24, '标准模板', '', 1566179492, '刘某');
+INSERT INTO `x_speed_model` VALUES (25, '特殊模板', '', 1567575617, '刘某');
+INSERT INTO `x_speed_model` VALUES (27, '地下工程', '', 1567649822, 'admin');
+INSERT INTO `x_speed_model` VALUES (28, '标准层施工', '', 1567649844, 'admin');
+INSERT INTO `x_speed_model` VALUES (29, '屋面层', '', 1567649908, 'admin');
+INSERT INTO `x_speed_model` VALUES (30, '土方开挖', '', 1567650703, 'admin');
+INSERT INTO `x_speed_model` VALUES (31, '主体结构', '', 1567650794, 'admin');
+INSERT INTO `x_speed_model` VALUES (32, '屋面工程', '', 1567650820, 'admin');
 
 -- ----------------------------
 -- Table structure for x_speed_model_detail
@@ -271,7 +329,7 @@ CREATE TABLE `x_speed_model_detail`  (
   `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `ctype` tinyint(1) NULL DEFAULT NULL COMMENT '是否有子集 1：有子集，0没有子集',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 134 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模板详情' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 198 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模板详情' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_speed_model_detail
@@ -292,6 +350,54 @@ INSERT INTO `x_speed_model_detail` VALUES (130, 24, '装饰装修工程', 0, '63
 INSERT INTO `x_speed_model_detail` VALUES (131, 24, '顶棚腻子', 130, '64', 0);
 INSERT INTO `x_speed_model_detail` VALUES (132, 24, '内粉', 130, '65', 0);
 INSERT INTO `x_speed_model_detail` VALUES (133, 24, '地坪', 130, '66', 0);
+INSERT INTO `x_speed_model_detail` VALUES (134, 25, '电梯工程-1', 0, '78', 0);
+INSERT INTO `x_speed_model_detail` VALUES (135, 25, '节能工程：保温', 0, '77', 0);
+INSERT INTO `x_speed_model_detail` VALUES (136, 25, '屋面工程', 0, '76', 0);
+INSERT INTO `x_speed_model_detail` VALUES (137, 25, '土方开挖回填-1', 0, '75', 0);
+INSERT INTO `x_speed_model_detail` VALUES (138, 25, '主体结构施工-1', 0, '71', 1);
+INSERT INTO `x_speed_model_detail` VALUES (139, 25, '模板支设', 138, '74', 0);
+INSERT INTO `x_speed_model_detail` VALUES (140, 25, '钢筋绑扎', 138, '73', 0);
+INSERT INTO `x_speed_model_detail` VALUES (141, 25, '砼浇筑', 138, '72', 0);
+INSERT INTO `x_speed_model_detail` VALUES (142, 25, '二次结构工程', 0, '67', 1);
+INSERT INTO `x_speed_model_detail` VALUES (143, 25, '模板支设', 142, '69', 0);
+INSERT INTO `x_speed_model_detail` VALUES (144, 25, '墙体砌筑', 142, '70', 0);
+INSERT INTO `x_speed_model_detail` VALUES (145, 25, '砼浇筑', 142, '68', 0);
+INSERT INTO `x_speed_model_detail` VALUES (146, 25, '装饰装修工程', 0, '63', 1);
+INSERT INTO `x_speed_model_detail` VALUES (147, 25, '顶棚腻子', 146, '64', 0);
+INSERT INTO `x_speed_model_detail` VALUES (148, 25, '内粉', 146, '65', 0);
+INSERT INTO `x_speed_model_detail` VALUES (149, 25, '地坪', 146, '66', 0);
+INSERT INTO `x_speed_model_detail` VALUES (177, 27, '内粉', 175, '65', 0);
+INSERT INTO `x_speed_model_detail` VALUES (176, 27, '顶棚腻子', 175, '64', 0);
+INSERT INTO `x_speed_model_detail` VALUES (175, 27, '装饰装修工程', 0, '63', 1);
+INSERT INTO `x_speed_model_detail` VALUES (174, 27, '砼浇筑', 171, '68', 0);
+INSERT INTO `x_speed_model_detail` VALUES (173, 27, '墙体砌筑', 171, '70', 0);
+INSERT INTO `x_speed_model_detail` VALUES (172, 27, '模板支设', 171, '69', 0);
+INSERT INTO `x_speed_model_detail` VALUES (171, 27, '二次结构工程', 0, '67', 1);
+INSERT INTO `x_speed_model_detail` VALUES (170, 27, '砼浇筑', 167, '72', 0);
+INSERT INTO `x_speed_model_detail` VALUES (169, 27, '钢筋绑扎', 167, '73', 0);
+INSERT INTO `x_speed_model_detail` VALUES (168, 27, '模板支设', 167, '74', 0);
+INSERT INTO `x_speed_model_detail` VALUES (167, 27, '主体结构施工', 0, '71', 1);
+INSERT INTO `x_speed_model_detail` VALUES (166, 27, '土方开挖回填', 0, '75', 0);
+INSERT INTO `x_speed_model_detail` VALUES (178, 27, '地坪', 175, '66', 0);
+INSERT INTO `x_speed_model_detail` VALUES (179, 28, '节能工程：保温', 0, '77', 0);
+INSERT INTO `x_speed_model_detail` VALUES (180, 28, '主体结构施工', 0, '71', 1);
+INSERT INTO `x_speed_model_detail` VALUES (181, 28, '模板支设', 180, '74', 0);
+INSERT INTO `x_speed_model_detail` VALUES (182, 28, '钢筋绑扎', 180, '73', 0);
+INSERT INTO `x_speed_model_detail` VALUES (183, 28, '砼浇筑', 180, '72', 0);
+INSERT INTO `x_speed_model_detail` VALUES (184, 28, '二次结构工程', 0, '67', 1);
+INSERT INTO `x_speed_model_detail` VALUES (185, 28, '模板支设', 184, '69', 0);
+INSERT INTO `x_speed_model_detail` VALUES (186, 28, '墙体砌筑', 184, '70', 0);
+INSERT INTO `x_speed_model_detail` VALUES (187, 28, '砼浇筑', 184, '68', 0);
+INSERT INTO `x_speed_model_detail` VALUES (188, 28, '装饰装修工程', 0, '63', 1);
+INSERT INTO `x_speed_model_detail` VALUES (189, 28, '顶棚腻子', 188, '64', 0);
+INSERT INTO `x_speed_model_detail` VALUES (190, 28, '内粉', 188, '65', 0);
+INSERT INTO `x_speed_model_detail` VALUES (191, 28, '地坪', 188, '66', 0);
+INSERT INTO `x_speed_model_detail` VALUES (192, 29, '屋面工程', 0, '76', 1);
+INSERT INTO `x_speed_model_detail` VALUES (193, 29, '防水工程', 192, '1567649892506', 0);
+INSERT INTO `x_speed_model_detail` VALUES (194, 29, '保温工程', 192, '1567649900574', 0);
+INSERT INTO `x_speed_model_detail` VALUES (195, 30, '土方开挖回填', 0, '75', 0);
+INSERT INTO `x_speed_model_detail` VALUES (196, 31, '主体结构施工', 0, '71', 0);
+INSERT INTO `x_speed_model_detail` VALUES (197, 32, '屋面工程', 0, '76', 0);
 
 -- ----------------------------
 -- Table structure for x_speed_plan
@@ -310,20 +416,24 @@ CREATE TABLE `x_speed_plan`  (
   `add_time` int(11) NULL DEFAULT NULL,
   `is_submit` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:已提交 2：待提交',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '计划表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '计划表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of x_speed_plan
 -- ----------------------------
 INSERT INTO `x_speed_plan` VALUES (6, 12, '周计划', '测试周计划', 1, 1, 3, '7,5', 0, 1566179599, 1);
 INSERT INTO `x_speed_plan` VALUES (7, 13, '测试', '测试测试测试踩刹车时踩刹车时踩刹车', 1, 2, 7, '6,7,5', 0, 1566206145, 1);
-INSERT INTO `x_speed_plan` VALUES (8, 13, '假数据吧', '测试是偶是 是樊登读书会 私活 私活私活', 1, 1, 7, '7,6,5', 0, 1566281849, 1);
-INSERT INTO `x_speed_plan` VALUES (9, 12, '意大利炮', '测试是偶是 是樊登读书会 私活 私活私活', 2, 1, 7, '6,7,5', 0, 1566281986, 1);
+INSERT INTO `x_speed_plan` VALUES (8, 13, '假数据吧', '测试是偶是 是樊登读书会 私活 私活私活', 1, 2, 7, '7,6,5', 0, 1566281849, 1);
+INSERT INTO `x_speed_plan` VALUES (9, 12, '意大利炮', '测试是偶是 是樊登读书会 私活 私活私活', 2, 2, 7, '6,7,5', 0, 1566281986, 1);
 INSERT INTO `x_speed_plan` VALUES (10, 13, 'sgdsgggs', 'sgsdgsgsdgsgsdg', 2, 2, 7, '6,7,5', 0, 1566374322, 1);
 INSERT INTO `x_speed_plan` VALUES (11, 13, '的时候所发生的和多号', '法法师法师法师', 2, 2, 7, '6,4,1', 0, 1566374447, 1);
 INSERT INTO `x_speed_plan` VALUES (12, 12, '哈哈', '暗示法法师法师号', 1, 2, 7, '0', 0, 1566381736, 1);
 INSERT INTO `x_speed_plan` VALUES (13, 12, '科技馆好客山东', '开始打科锐国际那肯定是技能大赛国家大事就算了；是', 1, 2, 7, '0', 0, 1566381929, 1);
 INSERT INTO `x_speed_plan` VALUES (14, 13, 'test', 'fffafasffasf', 2, 2, 7, '0', 2, 1566438692, 1);
+INSERT INTO `x_speed_plan` VALUES (15, 14, '10月月计划', '', 1, 2, 1, '0', 9, 1567650278, 1);
+INSERT INTO `x_speed_plan` VALUES (16, 14, '十月计划', '', 1, 1, 1, '0', 9, 1567650901, 1);
+INSERT INTO `x_speed_plan` VALUES (17, 14, '1', '1', 1, 2, 9, '0', 7, 1567738402, 1);
+INSERT INTO `x_speed_plan` VALUES (18, 14, 'test', 'test', 1, 1, 9, '10,11,12', 0, 1567742015, 1);
 
 -- ----------------------------
 -- Table structure for x_speed_speed
@@ -344,7 +454,7 @@ CREATE TABLE `x_speed_speed`  (
   `update_time` int(11) NULL DEFAULT NULL COMMENT '更新时间',
   `update_user` int(11) NULL DEFAULT NULL COMMENT '最近更新者',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1169 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '分步项计划与实际进度表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1312 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '分步项计划与实际进度表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of x_speed_speed
@@ -989,6 +1099,149 @@ INSERT INTO `x_speed_speed` VALUES (1165, 18, 130, NULL, NULL, NULL, 100, NULL, 
 INSERT INTO `x_speed_speed` VALUES (1166, 18, 131, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
 INSERT INTO `x_speed_speed` VALUES (1167, 18, 132, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
 INSERT INTO `x_speed_speed` VALUES (1168, 18, 133, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1169, 70, 177, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1170, 70, 176, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1171, 70, 175, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1172, 70, 174, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1173, 70, 173, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1174, 70, 172, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1175, 70, 171, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1176, 70, 170, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1177, 70, 169, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1178, 70, 168, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1179, 70, 167, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1180, 70, 166, 1569859200, 1570204800, 4, 100, NULL, NULL, NULL, 0, 1567650601, 0);
+INSERT INTO `x_speed_speed` VALUES (1181, 70, 178, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1182, 71, 179, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1183, 71, 180, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1184, 71, 181, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1185, 71, 182, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1186, 71, 183, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1187, 71, 184, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1188, 71, 185, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1189, 71, 186, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1190, 71, 187, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1191, 71, 188, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1192, 71, 189, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1193, 71, 190, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1194, 71, 191, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1195, 72, 179, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1196, 72, 180, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1197, 72, 181, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1198, 72, 182, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1199, 72, 183, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1200, 72, 184, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1201, 72, 185, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1202, 72, 186, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1203, 72, 187, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1204, 72, 188, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1205, 72, 189, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1206, 72, 190, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1207, 72, 191, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1208, 73, 192, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1209, 73, 193, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1210, 73, 194, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1211, 74, 177, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1212, 74, 176, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1213, 74, 175, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1214, 74, 174, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1215, 74, 173, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1216, 74, 172, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1217, 74, 171, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1218, 74, 170, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1219, 74, 169, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1220, 74, 168, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1221, 74, 167, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1222, 74, 166, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1223, 74, 178, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1224, 75, 179, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1225, 75, 180, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1226, 75, 181, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1227, 75, 182, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1228, 75, 183, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1229, 75, 184, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1230, 75, 185, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1231, 75, 186, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1232, 75, 187, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1233, 75, 188, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1234, 75, 189, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1235, 75, 190, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1236, 75, 191, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1237, 76, 192, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1238, 76, 193, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1239, 76, 194, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1240, 77, 195, 1569859200, 1570636800, 10, 100, 1569859200, 1571241600, 7, 30, 1567652406, 0);
+INSERT INTO `x_speed_speed` VALUES (1241, 78, 196, 1570723200, 1571500800, 9, 57, 1570982400, 1571155200, NULL, 100, 1567652123, 0);
+INSERT INTO `x_speed_speed` VALUES (1242, 79, 196, 1571500800, 1572105600, 10, 100, 1571155200, 1571328000, NULL, 100, 1567651631, 0);
+INSERT INTO `x_speed_speed` VALUES (1243, 80, 192, 1571673600, 1571932800, 10, 100, 1571846400, 1572451200, NULL, 63, 1567651652, 0);
+INSERT INTO `x_speed_speed` VALUES (1244, 80, 193, 1571846400, 1572278400, 10, 100, 1572192000, 1572451200, NULL, 92, 1567651678, 0);
+INSERT INTO `x_speed_speed` VALUES (1245, 80, 194, 1572364800, 1572451200, 10, 100, 1572364800, 1572451200, NULL, 89, 1567651708, 0);
+INSERT INTO `x_speed_speed` VALUES (1246, 81, 195, 1570636800, 1571068800, 10, 100, 1569859200, 1570636800, NULL, 100, 1567651737, 0);
+INSERT INTO `x_speed_speed` VALUES (1247, 82, 196, 1571155200, 1571414400, 10, 100, 1570723200, 1571500800, NULL, 100, 1567651767, 0);
+INSERT INTO `x_speed_speed` VALUES (1248, 83, 192, 1571846400, 1572192000, 10, 100, 1571846400, 1572451200, NULL, 57, 1567651826, 0);
+INSERT INTO `x_speed_speed` VALUES (1249, 83, 193, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1250, 83, 194, 1572278400, 1572451200, 32, 100, NULL, NULL, NULL, 0, 1567651452, 0);
+INSERT INTO `x_speed_speed` VALUES (1251, 84, 192, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1252, 84, 193, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1253, 84, 194, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1254, 85, 177, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1255, 85, 176, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1256, 85, 175, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1257, 85, 174, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1258, 85, 173, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1259, 85, 172, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1260, 85, 171, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1261, 85, 170, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1262, 85, 169, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1263, 85, 168, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1264, 85, 167, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1265, 85, 166, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1266, 85, 178, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1267, 86, 179, 1567353600, 1569772800, 10, 100, 1567353600, 1569772800, 10, 0, 1567748454, 0);
+INSERT INTO `x_speed_speed` VALUES (1268, 86, 180, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1269, 86, 181, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1270, 86, 182, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1271, 86, 183, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1272, 86, 184, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1273, 86, 185, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1274, 86, 186, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1275, 86, 187, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1276, 86, 188, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1277, 86, 189, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1278, 86, 190, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1279, 86, 191, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1280, 87, 195, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1281, 88, 177, 1567699200, 1568563200, 10, 100, 1567699200, 1568563200, 10, 0, 1567748504, 0);
+INSERT INTO `x_speed_speed` VALUES (1282, 88, 176, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1283, 88, 175, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1284, 88, 174, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1285, 88, 173, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1286, 88, 172, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1287, 88, 171, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1288, 88, 170, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1289, 88, 169, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1290, 88, 168, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1291, 88, 167, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1292, 88, 166, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1293, 88, 178, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1294, 89, 134, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1295, 89, 135, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1296, 89, 136, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1297, 89, 137, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1298, 89, 138, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1299, 89, 139, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1300, 89, 140, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1301, 89, 141, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1302, 89, 142, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1303, 89, 143, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1304, 89, 144, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1305, 89, 145, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1306, 89, 146, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1307, 89, 147, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1308, 89, 148, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1309, 89, 149, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1310, 90, 196, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `x_speed_speed` VALUES (1311, 91, 196, NULL, NULL, NULL, 100, NULL, NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for x_speed_speed_stage
@@ -1604,7 +1857,7 @@ CREATE TABLE `x_speed_update_log`  (
   `percent` int(11) NULL DEFAULT NULL COMMENT '完成百分比',
   `add_time` int(11) NULL DEFAULT NULL COMMENT '完成时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '进度更新日志表' ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '进度更新日志表' ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of x_speed_update_log
@@ -1619,6 +1872,18 @@ INSERT INTO `x_speed_update_log` VALUES (9, 10, 58, 122, 917, 32, 1566271840);
 INSERT INTO `x_speed_update_log` VALUES (10, 10, 58, 123, 918, 0, 1566271864);
 INSERT INTO `x_speed_update_log` VALUES (11, 10, 58, 123, 918, 25, 1566271917);
 INSERT INTO `x_speed_update_log` VALUES (12, 12, 64, 118, 1009, 14, 1566357012);
+INSERT INTO `x_speed_update_log` VALUES (13, 21, 77, 195, 1240, 0, 1567651494);
+INSERT INTO `x_speed_update_log` VALUES (14, 21, 77, 195, 1240, 100, 1567651547);
+INSERT INTO `x_speed_update_log` VALUES (15, 21, 78, 196, 1241, 100, 1567651577);
+INSERT INTO `x_speed_update_log` VALUES (16, 21, 79, 196, 1242, 100, 1567651631);
+INSERT INTO `x_speed_update_log` VALUES (17, 21, 80, 192, 1243, 63, 1567651653);
+INSERT INTO `x_speed_update_log` VALUES (18, 21, 80, 193, 1244, 92, 1567651678);
+INSERT INTO `x_speed_update_log` VALUES (19, 21, 80, 194, 1245, 89, 1567651709);
+INSERT INTO `x_speed_update_log` VALUES (20, 22, 81, 195, 1246, 100, 1567651738);
+INSERT INTO `x_speed_update_log` VALUES (21, 22, 82, 196, 1247, 100, 1567651767);
+INSERT INTO `x_speed_update_log` VALUES (22, 22, 83, 192, 1248, 57, 1567651826);
+INSERT INTO `x_speed_update_log` VALUES (23, 21, 77, 195, 1240, 10, 1567652388);
+INSERT INTO `x_speed_update_log` VALUES (24, 21, 77, 195, 1240, 30, 1567652406);
 
 -- ----------------------------
 -- Table structure for x_user
@@ -1633,19 +1898,22 @@ CREATE TABLE `x_user`  (
   `add_time` int(11) NULL DEFAULT NULL,
   `state` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1：可用 0：不可用',
   PRIMARY KEY (`uid`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_user
 -- ----------------------------
 INSERT INTO `x_user` VALUES (1, 'admin', '0b6f7d6404c5266af522ac9145fb3e76', '总管理员', 1, 1563954101, 1);
-INSERT INTO `x_user` VALUES (3, '刘某', '910aedba10fe7d1808aa9ca15486b828', '测试', 2, 1564038702, 1);
+INSERT INTO `x_user` VALUES (3, '刘某', '3b05ad6c2aab0a2ef045a162cc8a9cb8', '测试', 2, 1564038702, 1);
 INSERT INTO `x_user` VALUES (4, 'test', '529d0e5473f2294311ba30b812c1900d', 'CEO', 2, 1564631259, 0);
 INSERT INTO `x_user` VALUES (5, 'heyman', 'bf532c6c6640ad6669fbe5431b133b0e', 'tttt', 3, 1564631767, 0);
 INSERT INTO `x_user` VALUES (6, '测试', 'a0ea674381d3d7e95980682a352efd3e', 'CTO', 3, 1564640164, 1);
 INSERT INTO `x_user` VALUES (7, 'ss', '53b180933056e998be38db95e0f30e83', 'CTO', 2, 1565232604, 1);
 INSERT INTO `x_user` VALUES (8, 'dd', '98119fb40f51c7b82a37b1b10f3217c7', 'CBO', 3, 1567407342, 1);
 INSERT INTO `x_user` VALUES (9, 'ff', '257265cb6e77b2db8611880472d59353', 'CFO', 4, 1567407365, 1);
+INSERT INTO `x_user` VALUES (10, '111', 'ea25bf2ffcf19d699ef4f1cfa2e026cc', '甲方1', 2, 1567648912, 1);
+INSERT INTO `x_user` VALUES (11, '222', 'e2f7b006be716f25953efa264feec970', '监理2', 3, 1567649089, 1);
+INSERT INTO `x_user` VALUES (12, '333', '61a907c36cfb336943971dda3f3ec86c', '施工2', 4, 1567649119, 1);
 
 -- ----------------------------
 -- Table structure for x_user_group
@@ -1658,7 +1926,7 @@ CREATE TABLE `x_user_group`  (
   `group_uid` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '分组成员UID',
   `add_time` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户分组' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户分组' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_user_group
@@ -1667,6 +1935,8 @@ INSERT INTO `x_user_group` VALUES (6, 7, 'ss', '7', 1567402998);
 INSERT INTO `x_user_group` VALUES (2, 7, 'app', '5,6,3,4', 1565948790);
 INSERT INTO `x_user_group` VALUES (7, 9, 'test', '9,8,7', 1567501354);
 INSERT INTO `x_user_group` VALUES (5, 3, '同事', '3,1,7', 1566453231);
+INSERT INTO `x_user_group` VALUES (8, 7, 'gg', '8,7,9', 1567565567);
+INSERT INTO `x_user_group` VALUES (9, 1, '项目A', '10,11,12', 1567649149);
 
 -- ----------------------------
 -- Table structure for x_user_token
@@ -1679,15 +1949,18 @@ CREATE TABLE `x_user_token`  (
   `add_time` int(11) NULL DEFAULT NULL COMMENT '开始时间',
   `expire_time` int(11) NULL DEFAULT NULL COMMENT '过期时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 153 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'token' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 185 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'token' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of x_user_token
 -- ----------------------------
-INSERT INTO `x_user_token` VALUES (145, 1, 'ZHpCaq9_SQXrgiT_AIIuOcA_quo', 1567407310, 1568012110);
-INSERT INTO `x_user_token` VALUES (148, 3, 'SAIfegLEux2OC0EoXMxUu2qZQF4', 1567489091, 1568093891);
-INSERT INTO `x_user_token` VALUES (151, 7, '8t50J_dCHjPU3-RTRZkCGPvSr-Y', 1567502835, 1568107635);
-INSERT INTO `x_user_token` VALUES (152, 9, 'djeWV7tF4VBuwfn0pnM-vOB_bGs', 1567502852, 1568107652);
+INSERT INTO `x_user_token` VALUES (183, 1, 'PZ7gYkYiLUgfmxEER9oVhMpuEC0', 1568086733, 1568691533);
+INSERT INTO `x_user_token` VALUES (184, 3, '59R2V8Y4lxBJztjZKIkfY5TEq94', 1568086764, 1568691564);
+INSERT INTO `x_user_token` VALUES (181, 7, 'N4lmg0Cjgkw-FRyhQ6BM1Q1J7h4', 1567753828, 1568358628);
+INSERT INTO `x_user_token` VALUES (178, 9, '2UNasCnkdNrMxFfW4VuCK8cpdB8', 1567676635, 1568281435);
 INSERT INTO `x_user_token` VALUES (147, 8, 'P9HTQFTAmnEOTruO_q5-JoysBbY', 1567407475, 1568012275);
+INSERT INTO `x_user_token` VALUES (171, 12, 'o9M6WdcbZiH2oIUokYnk-kNRzS0', 1567653250, 1568258050);
+INSERT INTO `x_user_token` VALUES (173, 11, 'vXOFc-fsd3lTWwtD_jRbgA3C5nM', 1567653495, 1568258295);
+INSERT INTO `x_user_token` VALUES (174, 10, 'A8TnGff9RP8JxeT716PGOB5Enlg', 1567653565, 1568258365);
 
 SET FOREIGN_KEY_CHECKS = 1;
