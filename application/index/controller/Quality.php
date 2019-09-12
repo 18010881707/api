@@ -25,7 +25,7 @@ class Quality extends Base
         $images = input('post.images/a');
         $modify_time = input('post.modify_time','');//整改时间
         $group = input('post.group');//是否分组
-        $do_people = input('post.do_people/a');//是否分组
+        $do_people = input('post.do_people/a');
         if($group) {
             $to_user = input('post.to_user');
         } else {

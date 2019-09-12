@@ -730,9 +730,9 @@ class Speed extends Base
      * 计划项目进度接口
      */
     public function planForm(){
-        $project_id = input('param.pro_id',12);//项目
-        $plan_id = input('param.plan_id',6);//计划
-        $build_id = input('param.build_id',7);//楼号
+        $project_id = input('param.pro_id');//项目
+        $plan_id = input('param.plan_id');//计划
+        $build_id = input('param.build_id');//楼号
         $user_info = $this->user_info;
         $is_author = 0;
         if(!$project_id || !$plan_id || !$build_id) {
