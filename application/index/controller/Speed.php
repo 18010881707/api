@@ -1028,7 +1028,7 @@ class Speed extends Base
                 ->join('__SPEED_MODEL_DETAIL__ d','d.id = s.task_id')
                 ->order('s.id asc')
                 ->where('b.id',$build_id)
-                ->field('b.id as build_id,b.plan_id,b.build_num,b.area,b.floor_num,f.floor_num as floor_name,f.id as floor_id,s.id as speed_id,s.task_id,s.plan_start_date,s.plan_end_date,s.plan_day_num,s.real_start_date,s.plan_percent,s.real_end_date,s.real_day_num,s.percent,s.update_time,d.ctype,d.id as cate_id,d.c_name as cate_name,d.parent_id,d.code')
+                ->field('b.id as build_id,b.plan_id,b.build_num,b.area,b.floor_num,s.id as speed_id,s.task_id,s.plan_start_date,s.plan_end_date,s.plan_day_num,s.real_start_date,s.plan_percent,s.real_end_date,s.real_day_num,s.percent,s.update_time,d.ctype,d.id as cate_id,d.c_name as cate_name,d.parent_id,d.code')
                 ->select();
 
 
